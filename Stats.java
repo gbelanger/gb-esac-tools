@@ -258,7 +258,7 @@ public final class Stats {
 
 	double upperBound = nObs+step;
 	Poisson upperDist = new Poisson(upperBound, engine);
-	double area = upperDist.cdf(upperBound) - upperDist.cdf((new Double(nObs)).doubleValue());
+	double area = upperDist.cdf(upperBound) - upperDist.cdf((new Double(nObs)).doubleValue()); // ISSUE: method Poisson.cdf() takes integer input (discrete data) whereas upperBound is a double
 	double diff = oneSigmaArea - area;
 	while ( diff > precision ) {
 	    upperDist.setMean(upperBound);
