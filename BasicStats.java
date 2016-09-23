@@ -43,7 +43,7 @@ public final class BasicStats {
     public static double getSumOfSquares(double[] data) {
 	double sumOfSquares = 0;
 	for ( int i=0; i < data.length; i++ ) {
-	    sumOfSquares += data[i]*data[i];
+	    if ( !Double.isNaN(data[i]) ) sumOfSquares += data[i]*data[i];
 	}
 	return sumOfSquares;
     }
