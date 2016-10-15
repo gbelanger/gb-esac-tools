@@ -69,7 +69,7 @@ public class MyFFT {
     }
 
     /*
-     * Perfrom the FFT.  See more detailed comments below.
+     * Perform the FFT.  See more detailed comments below.
      * @param vector of complex number of length equal to a power of 2
      * @param number of data points (length/2, see ComplexNumbers.java)
      * @param direction of transform
@@ -103,7 +103,7 @@ public class MyFFT {
 	 ** nn      -- The total number of complex points.
 	 **            This is (data_in.length / 2 )
 	 **
-	 ** isign   -- +1 for forward transform
+	 ** isign   -- +1 for forward transform // should it be the other way round?
 	 **            -1 for reverse (inverse) transform
 	 **
 	 ** Output  --
@@ -125,10 +125,11 @@ public class MyFFT {
 	double wtemp, wr, wpr, wpi, wi, theta;
 	double temp, tempr, tempi;
 
-	n = nn << 1;
+	n = nn << 1; // 'bit shift' multiplies by 2
 
 	double[] data = new double[n+1];
-
+	
+	// shifts indices by 1
 	for ( i=1; i<=n; i++ ){
 	    data[i] = data_in[i-1];
 	}
@@ -137,6 +138,7 @@ public class MyFFT {
 
 	for ( i=1; i<n; i+=2 ) {
 	    if ( j > i ) {
+	    	// swaps ith, i+1th values with jth, j+1th values
 		temp = data[j];
 		data[j] = data[i];
 		data[i] = temp;
@@ -144,10 +146,10 @@ public class MyFFT {
 		data[j+1] = data[i+1];
 		data[i+1] = temp;
 	    }
-	    m = n >> 1;
+	    m = n >> 1; // divides by 2
 	    while( m >= 2 && j > m ) {
 		j -= m;
-		m >>= 1;
+		m >>= 1; // divides by 2
 	    }
 	    j += m;
 	}
@@ -155,7 +157,7 @@ public class MyFFT {
 	mmax = 2;
 	while ( n > mmax ) {
 	    istep = mmax << 1;
-	    theta = isign * (6.28318530717959/mmax);
+	    theta = isign * (6.28318530717959/mmax); // theata = isign*2pi/mmax
 	    wtemp = Math.sin( 0.5 * theta );
 	    wpr = -2.0 * wtemp * wtemp;
 	    wpi = Math.sin( theta );

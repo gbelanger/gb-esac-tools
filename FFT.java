@@ -1,5 +1,7 @@
 package gb.esac.tools;
 
+import java.lang.Math;
+
 
 /*************************************************************************
  *  Compilation:  javac FFT.java
@@ -32,8 +34,10 @@ public class FFT {
 	// base case
 	if (n == 1) return new Complex[] { x[0] };
 	
-	// radix 2 Cooley-Tukey FFT
-	if (n % 2 != 0) { throw new RuntimeException("N ("+n+") is not a power of 2"); }
+	// radix 2 Cooley-Tukey FFT; checks x.length is a power of 2
+	int intPart = (int) (Math.log( (double) n)/Math.log(2));
+	double decPart = (Math.log( (double) n))/(Math.log(2)) - intPart;
+	if ((decPart > 1e-4) && ((-1*(decPart-1)) > 1e-4) ) { throw new RuntimeException("input length ("+n+") is not a power of 2"); }
 
 	// fft of even terms
 	Complex[] even = new Complex[n/2];
