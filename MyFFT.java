@@ -14,11 +14,9 @@ package gb.esac.tools;
 
 public class MyFFT {
 
-
     /*
      * Methods
      */
-
 
     /*
      * Test if number is a power of 2
@@ -26,22 +24,16 @@ public class MyFFT {
      */
 
     public static boolean isPowOf2( double num ) {
-
 	boolean ans = false;
-
 	double hval  = num;
 	double eps   = 1.0e-6;
-
 	while (hval > 2.0) {
 	    hval /= 2.0 ;
 	}
-
 	if ( Math.abs(hval-2.0) <= eps ) {
 	    ans = true;
 	}
-	
 	return ans;
-
     }
 
 /*
@@ -50,22 +42,16 @@ public class MyFFT {
      */
 
     public static boolean isPowOf2( int num ) {
-
 	boolean ans = false;
-
 	double hval  = (double)num;
 	double eps   = 1.0e-6;
-
 	while (hval > 2.0) {
 	    hval /= 2.0 ;
 	}
-
 	if ( Math.abs(hval-2.0) <= eps ) {
 	    ans = true;
 	}
-	
 	return ans;
-
     }
 
     /*
@@ -119,7 +105,6 @@ public class MyFFT {
 	    err_vals[1] = 0.0F;
 	    return err_vals;
 	}
-
 
 	int n, mmax, m, j, istep, i;
 	double wtemp, wr, wpr, wpi, wi, theta;

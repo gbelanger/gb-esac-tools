@@ -11,14 +11,14 @@ import nom.tam.util.ArrayFuncs;
 
 /**
  *
- *  @version    June 2015 (last modified)
+ *  @version    April 2017 (last modified)
  *  @author 	Guillaume Belanger (ESAC, Spain)
  *
  **/
 
 public final class Converter {
 
-    public static double[] days2sec(double[] times) {
+    public static double[] days2sec(final double[] times) {
 	double[] t = new double[times.length];
 	for ( int i=0; i < times.length; i++ ) {
 	    t[i] = times[i]*86400.;
@@ -26,7 +26,7 @@ public final class Converter {
 	return t;
     }
 
-    public static double[] sec2ms(double[] times) {
+    public static double[] sec2ms(final double[] times) {
 	double[] t = new double[times.length];
 	for ( int i=0; i < times.length; i++ ) {
 	    t[i] = times[i]*1000;
@@ -34,7 +34,7 @@ public final class Converter {
 	return t;
     }
 
-    public static double[] lin2logSpace(double[] data) {
+    public static double[] lin2logSpace(final double[] data) {
 	double[] logData = new double[data.length];
 	for ( int i=0; i < data.length; i++ ) {
 	    logData[i] = Math.log10(data[i]);
@@ -42,7 +42,7 @@ public final class Converter {
 	return logData;
     }
 
-    public static double[] vector2doubleArray(Vector dataVector) {
+    public static double[] vector2doubleArray(final Vector dataVector) {
 	double[] data = new double[dataVector.size()];
 	for ( int i=0; i < dataVector.size(); i++ ) {
 	    data[i] = ((Double) dataVector.elementAt(i)).doubleValue();
@@ -50,7 +50,7 @@ public final class Converter {
 	return data;
     }
     
-    public static double[][] float2double(float[][] floatData) {
+    public static double[][] float2double(final float[][] floatData) {
 	////  Determine the size of the floatData double array
 	ArrayFuncs arrayFuncs = new ArrayFuncs();
 	int[] dataDims = arrayFuncs.getDimensions(floatData);
@@ -66,7 +66,7 @@ public final class Converter {
 	return doubleData;	
     }
     
-    public static double[] float2double(float[] floatData) {
+    public static double[] float2double(final float[] floatData) {
 	double[] doubleData = new double[floatData.length];
 	for ( int i=0; i < floatData.length; i++ ) {
 	    doubleData[i] = (new Double(floatData[i])).doubleValue();
@@ -74,7 +74,7 @@ public final class Converter {
 	return doubleData;
     }
 
-    public static double[] long2double(long[] longData) {
+    public static double[] long2double(final long[] longData) {
 	double[] doubleData = new double[longData.length];
 	for ( int i=0; i < longData.length; i++ ) {
 	    doubleData[i] = (new Long(longData[i])).doubleValue();
@@ -82,7 +82,7 @@ public final class Converter {
 	return doubleData;
     }
 
-    public static double[] short2double(short[] shortData) {
+    public static double[] short2double(final short[] shortData) {
 	double[] doubleData = new double[shortData.length];
 	for ( int i=0; i < shortData.length; i++ ) {
 	    doubleData[i] = (new Short(shortData[i])).doubleValue();
@@ -90,7 +90,7 @@ public final class Converter {
 	return doubleData;
     }
 
-    public static int[] short2int(short[] shortData) {
+    public static int[] short2int(final short[] shortData) {
 	int[] intData = new int[shortData.length];
 	for ( int i=0; i < shortData.length; i++ ) {
 	    intData[i] = (new Short(shortData[i])).intValue();
@@ -98,7 +98,7 @@ public final class Converter {
 	return intData;
     }
 
-    public static double[] int2double(int[] intData) {
+    public static double[] int2double(final int[] intData) {
 	double[] doubleData = new double[intData.length];
 	for ( int i=0; i < intData.length; i++ ) {
 	    doubleData[i] = (new Integer(intData[i])).doubleValue();
@@ -106,7 +106,7 @@ public final class Converter {
 	return doubleData;
     }
     
-    public static float[][] double2float(double[][] doubleData) {
+    public static float[][] double2float(final double[][] doubleData) {
 	ArrayFuncs arrayFuncs = new ArrayFuncs();
 	int[] dataDims = arrayFuncs.getDimensions(doubleData);
 	//  dataDims[0] = number of col (xaxis length)
@@ -121,7 +121,7 @@ public final class Converter {
 	return floatData;
     }
     
-    public static float[] double2float(double[] doubleData) {
+    public static float[] double2float(final double[] doubleData) {
 	float[]  floatData = new float[doubleData.length];
 	for ( int i=0; i < doubleData.length; i++ ) {
 	    floatData[i] = (new Double(doubleData[i])).floatValue();
@@ -129,7 +129,7 @@ public final class Converter {
 	return floatData;
     }
 
-    public static float[][] int2float(int[][] intData) {
+    public static float[][] int2float(final int[][] intData) {
 	ArrayFuncs arrayFuncs = new ArrayFuncs();
 	int[] dataDims = arrayFuncs.getDimensions(intData);
 	//  dataDims[0] = number of col (xaxis length)
@@ -143,22 +143,28 @@ public final class Converter {
 	return floatData;
     }
 
-    public static Histogram1D array2histo(double xmin, double binWidth, double[] data) {
+    public static Histogram1D array2histo(final double[] data) {
+	double xmin = 0;
+	double binWidth = 1;
+	return array2histo("histo", xmin, binWidth, data);
+    }
+    
+    public static Histogram1D array2histo(final double xmin, final double binWidth, final double[] data) {
 	return array2histo("histo", xmin, binWidth, data);
     }
 
-    public static Histogram1D array2histo(String title, double xmin, double binWidth, double[] data) {
-	//  Define histogram axis
-	int dataLength = data.length; 
+    public static Histogram1D array2histo(final String title, final double xmin, final double binWidth, final double[] data) {
+	//  Define FixedAxis
+	int dataLength = data.length;
  	double xmax = xmin + dataLength*binWidth;
  	FixedAxis xaxis = new FixedAxis(dataLength, xmin, xmax);
-	int nbins = xaxis.bins() + 2;
-	//  Fill mandatory array for histogram i.e. heights[] and errors[]
+	int nbins = xaxis.bins()+2;  // needs underflow and overflow bins
+	//  Fill mandatory arrays for histogram: heights[] and errors[]
 	double[] heights = new double[nbins];
 	double[] errors = new double[nbins];
-	for ( int i=1; i <= xaxis.bins(); i++ ) {
+	for (int i = 1; i <= xaxis.bins(); i++) {
 	    heights[i] = data[i-1];
-	    errors[i] = 0; //Math.sqrt(heights[i]);
+	    errors[i] = 0;
 	}
 	//  Set contents of histogram
 	Histogram1D histo = new Histogram1D("histo", title, xaxis);
@@ -169,17 +175,17 @@ public final class Converter {
 	return histo;
     }
 
-    public static Histogram1D array2histo(String title, double xmin, double binwidth, double[] data, double[] error) {
-	//  Define histogram edges and axis
+    public static Histogram1D array2histo(final String title, final double xmin, final double binwidth, final double[] data, final double[] error) {
+	//  Define bin edges and VariableAxis
 	int dataLength = data.length; 
  	double[] binEdgesX = new double[dataLength+1];
-	for ( int i=0; i < binEdgesX.length; i++ )  binEdgesX[i] = xmin + i*(binwidth);
+	for (int i = 0; i < binEdgesX.length; i++) binEdgesX[i] = xmin + i*(binwidth);
  	VariableAxis xaxis = new VariableAxis(binEdgesX);
-	int nbins = xaxis.bins() + 2;
+	int nbins = xaxis.bins()+2;   // needs underflow and overflow bins
 	//  Fill mandatory array for histogram i.e. heights[][] and errors[][]
 	double[] heights = new double[nbins];
 	double[] errors = new double[nbins];
-	for ( int i=1; i <= xaxis.bins(); i++ ) {
+	for (int i = 1; i <= xaxis.bins(); i++) {
 	    heights[i] = data[i-1];
 	    errors[i] = error[i-1];
 	}
@@ -192,15 +198,15 @@ public final class Converter {
 	return histo;
     }
 
-    public static Histogram1D array2histo(String title, double xmin, double[] binEdges, double[] data) {
+    public static Histogram1D array2histo(final String title, final double xmin, final double[] binEdges, final double[] data) {
 	//  Define histogram edges and variable bin size axis
 	//  **  IMPORTANT  **  Plotter cannot display bins of different sizes
  	VariableAxis xaxis = new VariableAxis(binEdges);
-	int nbins = xaxis.bins() + 2;
+	int nbins = xaxis.bins()+2;  // needs underflow and overflow bins
 	//  Fill mandatory array for histogram i.e. heights[][] and errors[][]
 	double[] heights = new double[nbins];
 	double[] errors = new double[nbins];
-	for ( int i=1; i <= xaxis.bins(); i++ ) {
+	for (int i = 1; i <= xaxis.bins(); i++) {
 	    heights[i] = data[i-1];
 	    errors[i] = 0; //Math.sqrt(heights[i]);
 	}
@@ -213,11 +219,11 @@ public final class Converter {
 	return histo;
     }
 
-    public static Histogram1D array2histo(String title, double xmin, double[] binEdges, double[] data, double[] error) {
+    public static Histogram1D array2histo(final String title, final double xmin, final double[] binEdges, final double[] data, final double[] error) {
 	//  Define histogram edges and variable bin size axis
 	//  **   BUG   **  Plotter cannot display bins of different sizes
  	VariableAxis xaxis = new VariableAxis(binEdges);
-	int nbins = xaxis.bins() + 2;
+	int nbins = xaxis.bins()+2;  // needs underflow and overflow bins
 	//  Fill mandatory array for histogram i.e. heights[][] and errors[][]
 	double[] heights = new double[nbins];
 	double[] errors = new double[nbins];
@@ -234,7 +240,7 @@ public final class Converter {
 	return histo;
     }
 
-    public static Histogram2D image2histo(float[][] imaData, float[][] varData) {
+    public static Histogram2D image2histo(final float[][] imaData, final float[][] varData) {
 	//  Get dimensions of input data array
 	int[] dims = ArrayFuncs.getDimensions(imaData);
 	int xsize = dims[0];  // number of cols
@@ -242,18 +248,19 @@ public final class Converter {
 	//  Define histogram edges and axes
  	double[] binEdgesX = new double[xsize+1];
 	double[] binEdgesY = new double[ysize+1];
-	for ( int i=0; i < binEdgesX.length; i++ ) binEdgesX[i] = i;
-	for ( int i=0; i < binEdgesY.length; i++ ) binEdgesY[i] = i;
+	for (int i = 0; i < binEdgesX.length; i++) binEdgesX[i] = i;
+	for (int i = 0; i < binEdgesY.length; i++) binEdgesY[i] = i;
  	VariableAxis xaxis = new VariableAxis(binEdgesX);
  	VariableAxis yaxis = new VariableAxis(binEdgesY);
-	int nbins = xaxis.bins() + 2;
+	int nbins = xaxis.bins()+2;  // needs underflow and overflow bins
 	//  Fill mandatory array for histogram i.e. heights[][] and errors[][]
 	double[][] heights = new double[nbins][nbins];
 	double[][] errors = new double[nbins][nbins];
-	int i = -1,  j = -1;
-	for ( int y = 0; y < ysize; y++ ) {
-	    while ( j < xaxis.bins()-2 ) {
-		for ( int x = 0; x < xsize; x++ ) {
+	int i = -1;
+	int j = -1;
+	for (int y = 0; y < ysize; y++) {
+	    while (j < xaxis.bins()-2) {
+		for (int x = 0; x < xsize; x++) {
 		    heights[j+2][i+2] = (new Double(imaData[y][x])).doubleValue();
 		    errors[j+2][i+2] = Math.sqrt(varData[y][x]);
 		    j++;
@@ -273,25 +280,25 @@ public final class Converter {
 	return histo2d;
     }
 
-    public static Histogram2D image2histo(float[][] imaData, float[][] varData, int xfirst, int xlast, int yfirst, int ylast) {
+    public static Histogram2D image2histo(final float[][] imaData, final float[][] varData, final int xfirst, final int xlast, final int yfirst, final int ylast) {
 	//  Get size of sub-image
 	int xsize = xlast - xfirst;
 	int ysize = ylast - yfirst;
 	//  Define histogram edges and axes
  	double[] binEdgesX = new double[xsize+1];
 	double[] binEdgesY = new double[ysize+1];
-	for ( int i=0; i < binEdgesX.length; i++ ) binEdgesX[i] = i;
-	for ( int i=0; i < binEdgesY.length; i++ ) binEdgesY[i] = i;
+	for (int i = 0; i < binEdgesX.length; i++)  binEdgesX[i] = i;
+	for (int i = 0; i < binEdgesY.length; i++)  binEdgesY[i] = i;
  	VariableAxis xaxis = new VariableAxis(binEdgesX);
  	VariableAxis yaxis = new VariableAxis(binEdgesY);
-	int nbins = xaxis.bins() + 2;
+	int nbins = xaxis.bins()+2;  // needs underflow and overflow bins
 	//  Fill mandatory array for histogram i.e. heights[][] and errors[][]
 	double[][] heights = new double[nbins][nbins];
 	double[][] errors = new double[nbins][nbins];
 	int i = -1,  j = -1;
-	for ( int y = yfirst; y < ylast; y++ ) {
-	    while ( j < xaxis.bins()-2 ) {
-		for ( int x = xfirst; x < xlast; x++ ) {
+	for (int y = yfirst; y < ylast; y++) {
+	    while (j < xaxis.bins()-2) {
+		for (int x = xfirst; x < xlast; x++) {
 		    heights[j+2][i+2] = (new Double(imaData[y][x])).doubleValue();
 		    errors[j+2][i+2] = Math.sqrt(varData[y][x]);
 		    j++;
@@ -311,7 +318,7 @@ public final class Converter {
 	return histo2d;
     }
 
-    public static double[][] fluxDensityToEquivCountRate(double[] flux, double[] error, double[] binWidths) {
+    public static double[][] fluxDensityToEquivCountRate(final double[] flux, final double[] error, final double[] binWidths) {
 	DecimalFormat number = new DecimalFormat("0.000");
 	//  Get means from input flux density 
 	double wMeanFlux = BasicStats.getWMean(flux, error);
@@ -327,7 +334,7 @@ public final class Converter {
 	double[] equivCountRate = new double[nbins];
 	double[] equivCountRateError = new double[nbins];
 	double[] signifRate = new double[nbins];
-	for ( int i=0; i < nbins; i++ ) {
+	for (int i = 0; i < nbins; i++) {
 	    equivCountRate[i] = scalingFactor*flux[i];
 	    equivCountRateError[i] = scalingFactor*error[i];
 	    signifRate[i] = equivCountRate[i]/equivCountRateError[i];

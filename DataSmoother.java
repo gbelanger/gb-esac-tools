@@ -10,6 +10,7 @@ public final class DataSmoother {
 
     private static Logger logger  = Logger.getLogger(DataSmoother.class);
 
+    
     public static double[] detrend(double[] x, double[] y) {
 
 	double[] mTimesX = getTrendValuesToSubtract(x, y);
@@ -24,6 +25,7 @@ public final class DataSmoother {
 	return detrended;
     }
 
+    
     public static double[] getTrendValuesToSubtract(double[] x, double[] y) {
 
 	// Fit
@@ -90,6 +92,7 @@ public final class DataSmoother {
 
     }
 
+    
     public static double[] kalmanFilter(double[] measurements, double[] measErrors, double processRMS) {
 	
 	double[] z = measurements;
@@ -128,6 +131,7 @@ public final class DataSmoother {
 	return xHat;
 
     }
+    
 
     public static double[] smooth(double[] data, int nBins) {
 	if ( nBins%2 != 1 ) {
@@ -181,6 +185,7 @@ public final class DataSmoother {
 	smoothData[data.length-1] = data[data.length-1];
 	return smoothData;
     }
+    
     
     public static Object[] smoothData(double[] time, double[] rate, double[] error, double smoothingWindowSize) {
 	//  Mean overall rate for data set  
@@ -328,7 +333,8 @@ public final class DataSmoother {
 	return weight;
     }
 
-    public static float[][] interp(float[][] data, int x1, int y1, int x2, int y2) {
+    
+    public static float[][] interpolate(float[][] data, int x1, int y1, int x2, int y2) {
 	/** 
 	   This program performs a bicubic interpolation using a 4 x 4 grid. 
 	   The interpolation is done at 4 points on each pixel and so returns a 2D-array 

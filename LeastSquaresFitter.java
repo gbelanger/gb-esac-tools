@@ -4,17 +4,19 @@ import org.apache.log4j.Logger;
 
 
 /**
+ * Class <code>LeastSquaresFitter</code> 
  *
- * @version  August 2010 (last modified)
- * @author   Guillaume Belanger (ESAC, Spain)
+ * @author <a href="mailto: guilaume.belanger@esa.int">Guillaume Belanger</a>, ESA/ESAC
+ * @version 1.0  (2010 August)
+ * @version 1.1  (2019 April)
  *
- **/
+ */
 
 public final class LeastSquaresFitter {
 
     private static Logger logger  = Logger.getLogger(LeastSquaresFitter.class);
 
-    public static double[] leastSquaresFitLine(double[] x, double[] y) {
+    public static double[] fitLine(double[] x, double[] y) {
 
 	logger.info("Calculating least squares best fit line");
 		
@@ -64,7 +66,7 @@ public final class LeastSquaresFitter {
     }
 	
 	
-    public static double[] leastSquaresFitPowerLaw(double[] x, double[] y) {
+    public static double[] fitPowerLaw(double[] x, double[] y) {
 	
 	int npoints = x.length;
 	

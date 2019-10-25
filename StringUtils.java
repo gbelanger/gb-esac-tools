@@ -4,6 +4,11 @@ package gb.esac.tools;
 
 public final class StringUtils {
 
+    public static String replaceExtension(String filename, String newExt) {
+	int indexOfDot = filename.lastIndexOf(".");
+	String name = filename.substring(0, indexOfDot);
+	return name+newExt;
+    }
 
     public static boolean searchString(String stringToFind, String stringToSearch) {
 	boolean matchFound = false;

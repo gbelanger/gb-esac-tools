@@ -206,4 +206,12 @@ public final class MathUtils {
 	return flux;
     }
 
+    public static double[] getRatios(double[] numerators, double[] denominators) {
+	double[] ratios = new double[numerators.length];
+	for ( int i=0; i < numerators.length; i++ ) {
+	    ratios[i] = numerators[i]/denominators[i];						  
+	}
+	return ratios;
+    }
+    
 }
