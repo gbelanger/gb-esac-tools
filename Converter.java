@@ -19,11 +19,11 @@ import nom.tam.util.ArrayFuncs;
 public final class Converter {
 
     public static double[] days2sec(final double[] times) {
-	double[] t = new double[times.length];
-	for ( int i=0; i < times.length; i++ ) {
-	    t[i] = times[i]*86400.;
-	}
-	return t;
+		double[] t = new double[times.length];
+		for (int i=0; i < times.length; i++) {
+		    t[i] = times[i]*86400.;
+		}
+		return t;
     }
 
     public static double[] sec2ms(final double[] times) {
