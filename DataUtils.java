@@ -1,5 +1,8 @@
 package gb.esac.tools;
 
+import java.util.Arrays;
+import java.util.Date;
+
 import cern.colt.list.DoubleArrayList;
 import cern.colt.list.IntArrayList;
 import cern.jet.random.Normal;
@@ -7,8 +10,6 @@ import cern.jet.random.Poisson;
 import cern.jet.random.Uniform;
 import cern.jet.random.engine.MersenneTwister64;
 import cern.jet.stat.Descriptive;
-import java.util.Arrays;
-import java.util.Date;
 import nom.tam.util.ArrayFuncs;
 import org.apache.log4j.Logger;
 
@@ -64,7 +65,7 @@ public final class DataUtils {
 	    zeroedData[i] = data[i] - zero + addedPositiveOffset;
 	}
 	return zeroedData;
-     }
+    }
 
     public static double[] bootstrap(double[] data, int nevents) {
 	int n = data.length;
